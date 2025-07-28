@@ -1,4 +1,5 @@
 from __future__ import annotations
+import logging
 
 from gidgethub import sansio
 from gidgethub.abc import GitHubAPI
@@ -10,9 +11,12 @@ from django_github_app.routing import GitHubRouter
 
 gh = GitHubRouter()
 
+logger = logging.getLogger(__name__)
+
 
 @gh.event("installation", action="created")
 def create_installation(event: sansio.Event, gh: GitHubAPI, *args, **kwargs):
+    logger.info("Creating installation from event: %s", event.data)
     Installation.objects.create_from_event(event)
 
 

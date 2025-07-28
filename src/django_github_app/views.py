@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+import logging
 import time
 from abc import ABC
 from abc import abstractmethod
@@ -26,6 +26,8 @@ from .models import Installation
 from .routing import GitHubRouter
 
 GitHubAPIType = TypeVar("GitHubAPIType", AsyncGitHubAPI, SyncGitHubAPI)
+
+logger = logging.getLogger(__name__)
 
 _router = GitHubRouter(*GitHubRouter.routers)
 
@@ -98,6 +100,8 @@ class SyncWebhookView(BaseWebhookView[SyncGitHubAPI]):
     github_api_class = SyncGitHubAPI
 
     def post(self, request: HttpRequest) -> JsonResponse:  # pragma: no cover
+        logger.info("Received webhook request: %s", request.body)
+
         event = self.get_event(request)
 
         if app_settings.AUTO_CLEANUP_EVENTS:
