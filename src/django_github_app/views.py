@@ -75,6 +75,8 @@ class AsyncWebhookView(BaseWebhookView[AsyncGitHubAPI]):
 
     @override
     async def post(self, request: HttpRequest) -> JsonResponse:
+        
+        logger.info("AsyncWebhookView received webhook request: %s", request.body)
         event = self.get_event(request)
 
         if app_settings.AUTO_CLEANUP_EVENTS:
@@ -100,7 +102,7 @@ class SyncWebhookView(BaseWebhookView[SyncGitHubAPI]):
     github_api_class = SyncGitHubAPI
 
     def post(self, request: HttpRequest) -> JsonResponse:  # pragma: no cover
-        logger.info("Received webhook request: %s", request.body)
+        logger.info("SyncWebhookView received webhook request: %s", request.body)
 
         event = self.get_event(request)
 
