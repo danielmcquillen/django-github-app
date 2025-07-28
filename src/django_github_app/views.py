@@ -36,6 +36,7 @@ class BaseWebhookView(View, ABC, Generic[GitHubAPIType]):
     github_api_class: type[GitHubAPIType]
 
     def get_event(self, request: HttpRequest) -> Event:
+        logger.info("BaseWebhookView: received webhook request: %s", request.body)
         try:
             event = Event.from_http(
                 request.headers,
