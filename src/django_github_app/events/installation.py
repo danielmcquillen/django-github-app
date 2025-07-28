@@ -11,7 +11,7 @@ from django_github_app.routing import GitHubRouter
 
 gh = GitHubRouter()
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("django_github_app")
 
 
 @gh.event("installation", action="created")

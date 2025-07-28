@@ -6,7 +6,7 @@ from ._typing import override
 
 import logging
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("django_github_app")
 
 
 class GitHubAppConfig(AppConfig):

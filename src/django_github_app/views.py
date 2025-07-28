@@ -27,7 +27,7 @@ from .routing import GitHubRouter
 
 GitHubAPIType = TypeVar("GitHubAPIType", AsyncGitHubAPI, SyncGitHubAPI)
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("django_github_app")
 
 _router = GitHubRouter(*GitHubRouter.routers)
 
